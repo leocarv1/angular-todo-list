@@ -1,0 +1,18 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+<section [ngClass]="{'fundo': !taskList.length}">
+    <ul *ngIf="taskList.length" >
+        <li *ngFor="let item of taskList; let i = index">
+            <input type="checkbox" [(ngModel)]="item.checked">
+            <input type="text" (keyup)="validationInput(item.task, i)" [(ngModel)]="item.task" [ngClass]="{'checked': item.checked}">
+
+            <button (click)="deleteItemTaskList(i)">
+                <i class="fa-solid fa-trash"></i>
+            </button>
+
+        </li>
+    </ul>
+</section>
+
+<app-todo-input-add-items (emitItemTaskList)="setEmitTaskList($event)"></app-todo-input-add-items>
+<app-todo-button-delete-all *ngIf="taskList.length" (click)="deleteAllTaskList()"></app-todo-button-delete-all>
